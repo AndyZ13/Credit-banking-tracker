@@ -1,10 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Micro Budget & Credit Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Local CSS (relative for GitHub Pages) -->
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Icons (optional) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -21,7 +25,7 @@
     <div class="language-box">
       <label for="language-select">🌍 <span id="language-label">Language:</span></label>
       <select id="language-select" onchange="changeLanguage()">
-        <option value="en">English</option>
+        <option value="en" selected>English</option>
         <option value="fr">Français</option>
         <option value="es">Español</option>
       </select>
@@ -35,7 +39,7 @@
         <h3 id="add-transaction">Add Transaction</h3>
         <div class="input-group">
           <input type="text" id="desc" placeholder="Description" />
-          <input type="number" id="amount" placeholder="Amount (e.g. 500)" />
+          <input type="number" id="amount" inputmode="decimal" placeholder="Amount (e.g. 500)" />
           <select id="type">
             <option value="income">Income</option>
             <option value="expense">Expense</option>
@@ -103,41 +107,31 @@
         <button id="clear-btn" onclick="clearAllData()">🗑️ Clear History</button>
       </div>
 
-    </div> <!-- End of .card-section -->
-  </div> <!-- End of .container -->
+    </div> <!-- /card-section -->
+  </div> <!-- /container -->
 
-  <!-- 📱 Footer -->
+  <!-- 📱 Footer (keep your author line unchanged) -->
   <footer class="mobile-footer">
     <p>&copy; 2025 Credit Tracker App | Made by Andy</p>
   </footer>
 
-  <!-- 📦 Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.9.0/dist/tf.min.js"></script>
+  <!-- 📦 Libraries (HTTPS) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="script.js"></script>
 
-  <!-- 🌗 Theme Toggle Logic -->
+  <!-- Your app (at the end so inline handlers work) -->
+  <script src="./script.js"></script>
+
+  <!-- 🌗 Theme boot (tiny, no external deps) -->
   <script>
-    window.onload = function () {
-      const hour = new Date().getHours();
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isNight = hour >= 18 || hour < 6;
-      const body = document.body;
-      if (isNight || prefersDark) {
-        body.classList.add('dark-mode');
-        document.querySelector('#mode-toggle i').className = 'fas fa-moon';
-      } else {
-        body.classList.remove('dark-mode');
-        document.querySelector('#mode-toggle i').className = 'fas fa-sun';
-      }
-    };
-
-    function toggleMode() {
-      const body = document.body;
-      body.classList.toggle('dark-mode');
+    // Set initial icon state based on class
+    (function(){
       const icon = document.querySelector('#mode-toggle i');
-      icon.className = body.classList.contains('dark-mode') ? 'fas fa-moon' : 'fas fa-sun';
-    }
+      if (document.body.classList.contains('dark-mode')) {
+        icon.className = 'fas fa-moon';
+      } else {
+        icon.className = 'fas fa-sun';
+      }
+    })();
   </script>
 </body>
 </html>
